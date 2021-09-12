@@ -3,7 +3,6 @@ var fs = require('fs');
 var path = require('path');
 
 var async = require('async');
-var watch = require('node-watch');
 var redis = require('redis');
 
 var dot = require('dot');
@@ -93,17 +92,6 @@ module.exports = function(logger){
             processTemplates();
         });
     };
-
-
-    //If an html file was changed reload it
-    watch('website', function(filename){
-        var basename = path.basename(filename);
-        if (basename in pageFiles){
-            console.log(filename);
-            readPageFiles([basename]);
-            logger.debug(logSystem, 'Server', 'Reloaded file ' + basename);
-        }
-    });
 
     portalStats.getGlobalStats(function(){
         readPageFiles(Object.keys(pageFiles));
