@@ -8,7 +8,7 @@
         "37KQnNAspu1BsaMQqrTVFBjjDCwon246Z4": 1.5
     },
 
-    "rewardBeneficiary": "none",
+    "rewardBeneficiary": "4a65FfE8F563866ABe33002A6161C026ef0A5f14",
 
     "multiVersion": true,
 
@@ -52,7 +52,7 @@
 
     "daemons": [
         {
-            "host": "192.168.178.140",
+            "host": "188.166.86.164",
             "port": 8332,
             "user": "testuser",
             "password": "testpass"
