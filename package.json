@@ -32,8 +32,8 @@
     },
     "dependencies": {
         "async": "1.5.2",
-        "bignum": "^0.13.0",
-        "bluebird": "^3.5.3",
+        "bignum": "0.13.1",
+        "bluebird": "^3.7.2",
         "body-parser": "*",
         "colors": "*",
         "compression": "*",
@@ -41,13 +41,13 @@
         "dot": "*",
         "express": "*",
         "extend": "*",
-        "meter-stratum-pool": "0.1.1",
         "mysql": "*",
         "node-json-minify": "*",
         "node-watch": "0.5.9",
         "nonce": "*",
         "redis": "0.12.1",
-        "request": "^2.88.0"
+        "request": "2.69.0",
+        "stratum-pool": "git://github.com/zone117x/node-stratum-pool.git"
     },
     "engines": {
         "node": ">=0.10"

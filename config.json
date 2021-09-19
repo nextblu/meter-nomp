@@ -14,7 +14,7 @@
         "jobRebroadcastTimeout": 55,
         "connectionTimeout": 600,
         "emitInvalidBlockHashes": false,
-        "validateWorkerUsername": false,
+        "validateWorkerUsername": true,
         "tcpProxyProtocol": false,
         "banning": {
             "enabled": true,
@@ -32,7 +32,7 @@
     "website": {
         "enabled": true,
         "host": "0.0.0.0",
-        "port": 8088,
+        "port": 8089,
         "stratumHost": "cryppit.com",
         "stats": {
             "updateInterval": 60,
@@ -111,4 +111,3 @@
         "useBittrex": true
     }
 }
-
