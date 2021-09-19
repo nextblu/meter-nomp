@@ -9,7 +9,7 @@ var redis = require('redis');
 var dot = require('dot');
 var express = require('express');
 var bodyParser = require('body-parser');
-var compress = require('compression');
+//var compress = require('compression');
 
 var Stratum = require('stratum-pool');
 var util = require('stratum-pool/lib/util.js');
@@ -268,7 +268,7 @@ module.exports = function(logger){
 
     });
 
-    app.use(compress());
+    // app.use(compress());
     app.use('/static', express.static('website/static'));
 
     app.use(function(err, req, res, next){

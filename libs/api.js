@@ -1,57 +1,56 @@
-var redis = require("redis");
-var async = require("async");
+var redis = require('redis');
+var async = require('async');
 
-var stats = require("./stats.js");
+var stats = require('./stats.js');
 
-module.exports = function(logger, portalConfig, poolConfigs) {
-  var _this = this;
+module.exports = function(logger, portalConfig, poolConfigs){
 
-  var portalStats = (this.stats = new stats(logger, portalConfig, poolConfigs));
 
-  this.liveStatConnections = {};
+    var _this = this;
 
-  this.handleApiRequest = async function(req, res, next) {
-    switch (req.params.method) {
-      case "stats":
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(portalStats.statsString);
-        return;
-      case "pool_stats":
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify(portalStats.statPoolHistory));
-        return;
-      case "live_stats":
-        res.writeHead(200, {
-          "Content-Type": "text/event-stream",
-          "Cache-Control": "no-cache",
-          Connection: "keep-alive"
-        });
-        res.write("\n");
-        var uid = Math.random().toString();
-        _this.liveStatConnections[uid] = res;
-        req.on("close", function() {
-          delete _this.liveStatConnections[uid];
-        });
+    var portalStats = this.stats = new stats(logger, portalConfig, poolConfigs);
 
-        return;
-      case "blocks":
-        var data = await portalStats.getBlockHistory();
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end(JSON.stringify(data));
-        return;
-      default:
-        next();
-    }
-  };
+    this.liveStatConnections = {};
 
-  this.handleAdminApiRequest = function(req, res, next) {
-    switch (req.params.method) {
-      case "pools": {
-        res.end(JSON.stringify({ result: poolConfigs }));
-        return;
-      }
-      default:
-        next();
-    }
-  };
+    this.handleApiRequest = function(req, res, next){
+        switch(req.params.method){
+            case 'stats':
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(portalStats.statsString);
+                return;
+            case 'pool_stats':
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify(portalStats.statPoolHistory));
+                return;
+            case 'live_stats':
+                res.writeHead(200, {
+                    'Content-Type': 'text/event-stream',
+                    'Cache-Control': 'no-cache',
+                    'Connection': 'keep-alive'
+                });
+                res.write('\n');
+                var uid = Math.random().toString();
+                _this.liveStatConnections[uid] = res;
+                req.on("close", function() {
+                    delete _this.liveStatConnections[uid];
+                });
+
+                return;
+            default:
+                next();
+        }
+    };
+
+
+    this.handleAdminApiRequest = function(req, res, next){
+        switch(req.params.method){
+            case 'pools': {
+                res.end(JSON.stringify({result: poolConfigs}));
+                return;
+            }
+            default:
+                next();
+        }
+    };
+
 };
